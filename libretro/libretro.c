@@ -33,6 +33,7 @@
 #include "sysmenu.h"
 #include "milstr.h"
 #include "strres.h"
+#include "np2.h"
 
 #define SOUNDRATE 44100.0
 #define SNDSZ 735
@@ -430,13 +431,15 @@ void retro_set_environment(retro_environment_t cb)
       { "np2_clk_mult" , "CPU Clock Multiplier (Restart); 4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|1|2|3" },
       { "np2_ExMemory" , "RAM Size (Restart); 2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|24|32|48|64|1" },
       { "np2_skipline" , "Skipline Revisions; Full 255 lines|ON|OFF" },
+      { "np2_SNDboard" , "Sound Board (Restart); PC9801-86|PC9801-26K + 86|PC9801-86 + Chibi-Oto|PC9801-118|Speak Board|Spark Board|Sound Orchestra|Sound Orchestra-V|AMD-98|None|PC9801-14|PC9801-26K" },
+      { "np2_jast_snd" , "JastSound; OFF|ON" },
       { "np2_volume_F" , "Volume FM; 64|68|72|76|80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60" },
       { "np2_volume_S" , "Volume SSG; 64|68|72|76|80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60" },
       { "np2_volume_A" , "Volume ADPCM; 64|68|72|76|80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60" },
       { "np2_volume_P" , "Volume PCM; 64|68|72|76|80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60" },
       { "np2_volume_R" , "Volume RHYTHM; 64|68|72|76|80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60" },
-      { "np2_Seek_Snd" , "Floppy Seek Sound; ON|OFF" },
-      { "np2_Seek_Vol" , "Volume Floppy Seek; 80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76" },
+      { "np2_Seek_Snd" , "Floppy Seek Sound (Restart); OFF|ON" },
+      { "np2_Seek_Vol" , "Volume Floppy Seek (Restart); 80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76" },
       { "np2_BEEP_vol" , "Volume Beep; 3|0|1|2" },
       { NULL, NULL },
    };
@@ -507,6 +510,48 @@ static void update_variables(void)
          np2cfg.skipline = true;
       }
 	  scrndraw_redraw();
+   }
+
+   var.key = "np2_SNDboard";
+   var.value = NULL;
+
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      if (strcmp(var.value, "PC9801-86") == 0)
+         np2cfg.SOUND_SW = 0x04;
+      else if (strcmp(var.value, "PC9801-26K + 86") == 0)
+         np2cfg.SOUND_SW = 0x06;
+      else if (strcmp(var.value, "PC9801-86 + Chibi-Oto") == 0)
+         np2cfg.SOUND_SW = 0x14;
+      else if (strcmp(var.value, "PC9801-118") == 0)
+         np2cfg.SOUND_SW = 0x08;
+      else if (strcmp(var.value, "Speak Board") == 0)
+         np2cfg.SOUND_SW = 0x20;
+      else if (strcmp(var.value, "Spark Board") == 0)
+         np2cfg.SOUND_SW = 0x40;
+      else if (strcmp(var.value, "Sound Orchestra") == 0)
+         np2cfg.SOUND_SW = 0x32;
+      else if (strcmp(var.value, "Sound Orchestra-V") == 0)
+         np2cfg.SOUND_SW = 0x82;
+      else if (strcmp(var.value, "AMD-98") == 0)
+         np2cfg.SOUND_SW = 0x80;
+      else if (strcmp(var.value, "None") == 0)
+         np2cfg.SOUND_SW = 0x00;
+      else if (strcmp(var.value, "PC9801-14") == 0)
+         np2cfg.SOUND_SW = 0x01;
+      else if (strcmp(var.value, "PC9801-26K") == 0)
+         np2cfg.SOUND_SW = 0x02;
+   }
+
+   var.key = "np2_jast_snd";
+   var.value = NULL;
+
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      if (strcmp(var.value, "OFF") == 0)
+         np2oscfg.jastsnd = 0;
+      else if (strcmp(var.value, "ON") == 0)
+         np2oscfg.jastsnd = 1;
    }
 
    var.key = "np2_volume_F";
