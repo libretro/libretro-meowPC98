@@ -26,7 +26,7 @@ void fddmtrsnd_initialize(UINT rate) {
 		mtrsnd.snd.hdr.enable = 3;
 		pcmmix_regist(&mtrsnd.snd.trk[0].data,
 								(void *)fddseek, sizeof(fddseek), rate);
-		mtrsnd.snd.trk[0].flag = PMIXFLAG_L | PMIXFLAG_R /*| PMIXFLAG_LOOP*/;
+		mtrsnd.snd.trk[0].flag = PMIXFLAG_L | PMIXFLAG_R | PMIXFLAG_LOOP;
 		mtrsnd.snd.trk[0].volume = (np2cfg.MOTORVOL << 12) / 100;
 		pcmmix_regist(&mtrsnd.snd.trk[1].data,
 								(void *)fddseek1, sizeof(fddseek1), rate);
