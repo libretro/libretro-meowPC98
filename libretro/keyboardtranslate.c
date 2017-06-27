@@ -35,7 +35,7 @@ static const LRKCNV lrcnv101[] =
 			{RETROK_f,           0x20},	{RETROK_g,           0x21},
 			{RETROK_h,           0x22},	{RETROK_j,           0x23},
 			{RETROK_k,           0x24},	{RETROK_l,           0x25},
-			{RETROK_SEMICOLON,	0x26},	{RETROK_COLON,       0x27},
+			{RETROK_SEMICOLON,	0x26},	{RETROK_QUOTE,       0x27},
    
 			{RETROK_RIGHTBRACKET,0x28},	{RETROK_z,           0x29},
 			{RETROK_x,           0x2a},	{RETROK_c,           0x2b},
@@ -72,7 +72,7 @@ static const LRKCNV lrcnv101[] =
 			{RETROK_F7,          0x68},	{RETROK_F8,          0x69},
 			{RETROK_F9,          0x6a},	{RETROK_F10,			0x6b},
    
-			{RETROK_RSHIFT,		0x70},	{RETROK_LSHIFT,		0x70},
+			{RETROK_RSHIFT,		0x7d},	{RETROK_LSHIFT,		0x70},
 			{RETROK_CAPSLOCK,		0x71},
 			{RETROK_RALT,			0x73},	{RETROK_LALT,			0x73},
 			{RETROK_RCTRL,       0x74},	{RETROK_LCTRL,       0x74},
