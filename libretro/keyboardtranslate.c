@@ -28,7 +28,7 @@ static const LRKCNV lrcnv101[] =
 			{RETROK_u,           0x16},	{RETROK_i,           0x17},
    
 			{RETROK_o,           0x18},	{RETROK_p,           0x19},
-			{RETROK_AT,          0x1a},	{RETROK_LEFTBRACKET,	0x1b},
+			{RETROK_BACKQUOTE,   0x1a},	{RETROK_LEFTBRACKET,	0x1b},
 			{RETROK_RETURN,		0x1c},	{RETROK_a,           0x1d},
 			{RETROK_s,           0x1e},	{RETROK_d,           0x1f},
    
@@ -43,8 +43,7 @@ static const LRKCNV lrcnv101[] =
 			{RETROK_n,           0x2e},	{RETROK_m,           0x2f},
    
 			{RETROK_COMMA,       0x30},	{RETROK_PERIOD,		0x31},
-			{RETROK_SLASH,       0x32},	{RETROK_UNDERSCORE,	0x33},
-			{RETROK_SPACE,       0x34},
+			{RETROK_SLASH,       0x32}, {RETROK_SPACE,       0x34},
 			{RETROK_PAGEUP,      0x36},	{RETROK_PAGEDOWN,		0x37},
    
 			{RETROK_INSERT,		0x38},	{RETROK_DELETE,		0x39},
@@ -60,7 +59,7 @@ static const LRKCNV lrcnv101[] =
 			{RETROK_KP6,			0x48},	{RETROK_KP_PLUS,		0x49},
 			{RETROK_KP1,			0x4a},	{RETROK_KP2,			0x4b},
 			{RETROK_KP3,			0x4c},	{RETROK_KP_EQUALS,	0x4d},
-			{RETROK_KP0,			0x4e},
+			{RETROK_KP0,			0x4e},	{RETROK_KP_ENTER,	0x1c},
    
 			{RETROK_KP_PERIOD,	0x50},
    
@@ -74,7 +73,7 @@ static const LRKCNV lrcnv101[] =
    
 			{RETROK_RSHIFT,		0x7d},	{RETROK_LSHIFT,		0x70},
 			{RETROK_CAPSLOCK,		0x71},
-			{RETROK_RALT,			0x73},	{RETROK_LALT,			0x73},
+			{RETROK_RALT,        0x33},	{RETROK_LALT,			0x73},
 			{RETROK_RCTRL,       0x74},	{RETROK_LCTRL,       0x74},
    
 			/* = */
