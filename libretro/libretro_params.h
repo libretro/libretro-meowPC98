@@ -3,7 +3,7 @@
 
 #define LR_SCREENWIDTH  640
 #define LR_SCREENHEIGHT 400
-#define LR_SCREENASPECT 4.0 / 3.0
+#define LR_SCREENASPECT 16.0 / 10.0
 #define LR_SCREENFPS    60.0
 
 #define LR_SOUNDRATE    44100.0
