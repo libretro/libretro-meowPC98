@@ -12,7 +12,7 @@ typedef struct {
 /*! 101 keyboard key table */
 static const LRKCNV lrcnv101[] =
 {
-			{RETROK_ESCAPE,		 0x00},	{RETROK_1,           0x01},
+			{RETROK_ESCAPE,      0x00},	{RETROK_1,           0x01},
 			{RETROK_2,           0x02},	{RETROK_3,           0x03},
 			{RETROK_4,           0x04},	{RETROK_5,           0x05},
 			{RETROK_6,           0x06},	{RETROK_7,           0x07},
@@ -20,7 +20,7 @@ static const LRKCNV lrcnv101[] =
 			{RETROK_8,           0x08},	{RETROK_9,           0x09},
 			{RETROK_0,           0x0a},	{RETROK_MINUS,       0x0b},
 			{RETROK_CARET,       0x0c},	{RETROK_BACKSLASH,   0x0d},
-			{RETROK_BACKSPACE,	 0x0e},	{RETROK_TAB,         0x0f},
+			{RETROK_BACKSPACE,   0x0e},	{RETROK_TAB,         0x0f},
 
 			{RETROK_q,           0x10},	{RETROK_w,           0x11},
 			{RETROK_e,           0x12},	{RETROK_r,           0x13},
@@ -29,13 +29,13 @@ static const LRKCNV lrcnv101[] =
 
 			{RETROK_o,           0x18},	{RETROK_p,           0x19},
 			{RETROK_BACKQUOTE,   0x1a},	{RETROK_LEFTBRACKET, 0x1b},
-			{RETROK_RETURN,		 0x1c},	{RETROK_a,           0x1d},
+			{RETROK_RETURN,      0x1c},	{RETROK_a,           0x1d},
 			{RETROK_s,           0x1e},	{RETROK_d,           0x1f},
 
 			{RETROK_f,           0x20},	{RETROK_g,           0x21},
-			{RETROK_h,           0x22},	{RETROK_j,           0x23},
+			{RETROK_h,           0x22}, {RETROK_j,           0x23},
 			{RETROK_k,           0x24},	{RETROK_l,           0x25},
-			{RETROK_SEMICOLON,	 0x26},	{RETROK_QUOTE,       0x27},
+			{RETROK_SEMICOLON,   0x26},	{RETROK_QUOTE,       0x27},
 
 			{RETROK_RIGHTBRACKET,0x28},	{RETROK_z,           0x29},
 			{RETROK_x,           0x2a},	{RETROK_c,           0x2b},
@@ -46,7 +46,7 @@ static const LRKCNV lrcnv101[] =
 			{RETROK_SLASH,       0x32}, {RETROK_SPACE,       0x34},
 			{RETROK_PAGEUP,      0x36},	{RETROK_PAGEDOWN,    0x37},
 
-			{RETROK_INSERT,		 0x38},	{RETROK_DELETE,      0x39},
+			{RETROK_INSERT,      0x38},	{RETROK_DELETE,      0x39},
 			{RETROK_UP,          0x3a},	{RETROK_LEFT,        0x3b},
 			{RETROK_RIGHT,       0x3c},	{RETROK_DOWN,        0x3d},
 			{RETROK_HOME,        0x3e},	{RETROK_END,         0x3f},
