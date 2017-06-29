@@ -73,7 +73,7 @@ static const LRKCNV lrcnv101[] =
 
 			{RETROK_RSHIFT,      0x7d},   {RETROK_LSHIFT,      0x70},
 			{RETROK_CAPSLOCK,    0x71},
-			{RETROK_RALT,        0x33},   {RETROK_LALT,        0x73},
+			{RETROK_RALT,        0x73},   {RETROK_LALT,        0x73},
 			{RETROK_RCTRL,       0x74},   {RETROK_LCTRL,       0x74},
 
 			/* = */
@@ -130,9 +130,14 @@ void send_libretro_key_down(uint16_t key){
 
    if (key == RETROK_F12)
    {
-	data = getf12key();
+      data = getf12key();
    }
-   
+
+   if (key == RETROK_0 && (key_states[RETROK_RSHIFT] || key_states[RETROK_LSHIFT]) )
+   {
+      data = 0x33; // map _ as shift+0
+   }
+
    if (data != NC && !key_states[key])
    {
       keystat_senddata(data);//keystat_keydown(data);
@@ -145,7 +150,12 @@ void send_libretro_key_up(uint16_t key){
 
    if (key == RETROK_F12)
    {
-	data = getf12key();
+      data = getf12key();
+   }
+
+   if (key == RETROK_0 && (key_states[RETROK_RSHIFT] || key_states[RETROK_LSHIFT]) )
+   {
+      data = 0x33; // map _ as shift+0
    }
 
    if (data != NC && key_states[key])
