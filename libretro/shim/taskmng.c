@@ -108,7 +108,9 @@ BOOL taskmng_sleep(UINT32 tick) {
    {
       taskmng_rol();
       //SDL_Delay(1);
+#ifndef WIIU
       retro_sleep(1);
+#endif
    }
 	return(task_avail);
 }

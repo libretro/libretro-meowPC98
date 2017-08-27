@@ -70,7 +70,9 @@
 #endif
 
 #ifdef GEKKO
+#ifndef WIIU
 #include <ogc/lwp_watchdog.h>
+#endif
 #endif
 
 #ifdef WIIU
@@ -164,7 +166,7 @@ retro_perf_tick_t cpu_features_get_perf_counter(void)
    __asm__ volatile( "mrc p15, 0, %0, c9, c13, 0" : "=r"(time_ticks) );
 #elif defined(__CELLOS_LV2__) || defined(_XBOX360) || defined(__powerpc__) || defined(__ppc__) || defined(__POWERPC__)
    time_ticks = __mftb();
-#elif defined(GEKKO)
+#elif defined(GEKKO) && !defined(WIIU)
    time_ticks = gettime();
 #elif defined(PSP) 
    sceRtcGetCurrentTick((uint64_t*)&time_ticks);
@@ -205,7 +207,7 @@ retro_time_t cpu_features_get_time_usec(void)
    return count.QuadPart * 1000000 / freq.QuadPart;
 #elif defined(__CELLOS_LV2__)
    return sys_time_get_system_time();
-#elif defined(GEKKO)
+#elif defined(GEKKO) && !defined(WIIU)
    return ticks_to_microsecs(gettime());
 #elif defined(_POSIX_MONOTONIC_CLOCK) || defined(__QNX__) || defined(ANDROID) || defined(__MACH__)
    struct timespec tv = {0};
@@ -459,7 +461,7 @@ unsigned cpu_features_get_core_amount(void)
    SYSTEM_INFO sysinfo;
    GetSystemInfo(&sysinfo);
    return sysinfo.dwNumberOfProcessors;
-#elif defined(GEKKO)
+#elif defined(GEKKO) && !defined(WIIU)
    return 1;
 #elif defined(PSP)
    return 1;

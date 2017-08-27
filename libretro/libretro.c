@@ -55,7 +55,26 @@ retro_audio_sample_batch_t audio_batch_cb = NULL;
 
 static char CMDFILE[512];
 
+int PAS=3;
+bool GUIMOUSE =true;
+
 bool did_reset;
+
+long frame=0;
+unsigned long  Ktime=0 , LastFPSTime=0;
+int slowdown=0;
+
+void gui_delay_events(void)
+{
+   	Ktime =(unsigned long)  GETTICK();
+
+   	if(Ktime - LastFPSTime >= 1000/50)
+   	{
+      		slowdown=0;
+      		frame++; 
+      		LastFPSTime = Ktime;
+   	}
+}
 
 int loadcmdfile(char *argv)
 {
@@ -330,9 +349,22 @@ void updateInput(){
    }
 
    static int mbL = 0, mbR = 0;
+   int mouse_x=0,mouse_y=0,mouse_l,mouse_r;
 
-   int mouse_x = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_X);
-   int mouse_y = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_Y);
+   if(GUIMOUSE){
+      mouse_x = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_X);
+      mouse_y = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_Y);
+   }
+   else {
+      if (input_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_RIGHT))
+         mouse_x += PAS;
+      if (input_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_LEFT))
+         mouse_x -= PAS;
+      if (input_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_DOWN))
+         mouse_y += PAS;
+      if (input_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_UP))
+         mouse_y -= PAS;
+   }
 
    if (!mousemng.flag){			
 	mousemng_sync(mouse_x,mouse_y);
@@ -348,9 +380,15 @@ void updateInput(){
 		menubase_moving(mposx, mposy, 0);
 	}
 
-   int mouse_l = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_LEFT);
-   int mouse_r = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_RIGHT);
-		      
+   if(GUIMOUSE){
+   	mouse_l = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_LEFT);
+   	mouse_r = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_RIGHT);
+   }
+   else {
+        mouse_l = input_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_A);
+        mouse_r = input_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_B);
+   }
+	      
    if(mbL==0 && mouse_l)
    {
       	mbL=1;		
@@ -441,6 +479,8 @@ void retro_set_environment(retro_environment_t cb)
       { "np2_Seek_Snd" , "Floppy Seek Sound (Restart); OFF|ON" },
       { "np2_Seek_Vol" , "Volume Floppy Seek (Restart); 80|84|88|92|96|100|104|108|112|116|120|124|128|0|4|8|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76" },
       { "np2_BEEP_vol" , "Volume Beep; 3|0|1|2" },
+      { "np2_GUI_controller" , "Gui Controller; MOUSE|JOY0" },
+      { "np2_GUIJOY_PAS" , "Gui Joy0 PAS; 3|4|5|1|2" },
       { NULL, NULL },
    };
 
@@ -628,6 +668,25 @@ static void update_variables(void)
       beep_setvol(np2cfg.BEEP_VOL);
    }
 
+   var.key = "np2_GUI_controller";
+   var.value = NULL;
+
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      if (strcmp(var.value, "MOUSE") == 0)
+         GUIMOUSE= true;
+      else if (strcmp(var.value, "JOY0") == 0)
+         GUIMOUSE = false;
+   }
+
+   var.key = "np2_GUIJOY_PAS";
+   var.value = NULL;
+
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      PAS = atoi(var.value);      
+   }
+
    initsave();
 
 }
@@ -706,6 +765,11 @@ void retro_run (void)
       pccore_cfgupdate();
       pccore_reset();
       did_reset = false;
+   }
+
+   if (menuvram != NULL){
+	slowdown=1;
+	gui_delay_events();
    }
 
    updateInput();
