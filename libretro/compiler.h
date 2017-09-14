@@ -21,14 +21,26 @@
 #include "sdlremap/sdl.h"
 #include "sdlremap/sdl_keycode.h"
 
+#ifndef MSB_FIRST
 #define	BYTESEX_LITTLE
+#else
+#define	BYTESEX_BIG
+#endif
+
 #define	OSLANG_UTF8
 #define	OSLINEBREAK_CRLF
 #define  RESOURCE_US
+
 #ifdef __WIN32__
 #define	sigjmp_buf				jmp_buf
 #define	sigsetjmp(env, mask)	setjmp(env)
 #define	siglongjmp(env, val)	longjmp(env, val)
+#endif
+
+#ifdef WIIU
+ #define	sigjmp_buf		jmp_buf
+ #define	sigsetjmp(env, mask)	setjmp(env)
+ #define	siglongjmp(env, val)	longjmp(env, val)
 #endif
 
 typedef	int32_t		SINT;
@@ -110,7 +122,8 @@ typedef int8_t		CHAR;
 #endif
 
 //#define	msgbox(title, msg)	toolkit_messagebox(title, msg);
-#define	msgbox(title, msg)
+//#define	msgbox(title, msg)
+#define	msgbox(title, msg) menumbox(msg, title, 0x0000 | 0x0040)
 
 #include "common.h"
 #include "milstr.h"
