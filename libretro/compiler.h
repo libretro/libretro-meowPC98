@@ -37,6 +37,11 @@
 #define	siglongjmp(env, val)	longjmp(env, val)
 #endif
 
+#if defined( __i386__) && defined(__ANDROID__)
+#define	sigsetjmp(env, mask)	setjmp(env)
+#define	siglongjmp(env, val)	longjmp(env, val)
+#endif 
+
 #ifdef WIIU
  #define	sigjmp_buf		jmp_buf
  #define	sigsetjmp(env, mask)	setjmp(env)
