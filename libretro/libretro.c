@@ -15,6 +15,7 @@
 
 #include "compiler.h"//required to prevent missing type errors
 #include "pccore.h"
+#include "cpucore.h"
 #include "keystat.h"
 #include "fddfile.h"
 #include "newdisk.h"
@@ -432,9 +433,19 @@ void updateInput(){
 
 }
 
+void *retro_get_memory_data(unsigned type)
+{
+   if ( type == RETRO_MEMORY_SYSTEM_RAM )
+      return CPU_EXTMEM;
+   return NULL;
+}
+size_t retro_get_memory_size(unsigned type)
+{
+   if ( type == RETRO_MEMORY_SYSTEM_RAM )
+      return CPU_EXTMEMSIZE;
+   return 0;
+}
 //dummy functions
-void *retro_get_memory_data(unsigned type){return NULL;}
-size_t retro_get_memory_size(unsigned type){return 0;}
 void retro_set_audio_sample(retro_audio_sample_t cb){}
 bool retro_load_game_special(unsigned game_type, const struct retro_game_info *info, size_t num_info){return false;}
 void retro_unload_game (void){}
