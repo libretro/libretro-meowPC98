@@ -54,24 +54,39 @@ endif
 # iOS
 else ifneq (,$(findstring ios,$(platform)))
 	TARGET := $(TARGET_NAME)_libretro_ios.dylib
-	COMMONFLAGS += -DHAVE_POSIX_MEMALIGN=1 -marm
+	COMMONFLAGS += -DHAVE_POSIX_MEMALIGN=1 -marm -Wno-error=implicit-function-declaration
 	fpic = -fPIC
 	LDFLAGS += -dynamiclib
 
 	ifeq ($(IOSSDK),)
 		IOSSDK := $(shell xcodebuild -version -sdk iphoneos Path)
 	endif
-
-	CC = cc -arch armv7 -isysroot $(IOSSDK)
-	CXX = c++ -arch armv7 -isysroot $(IOSSDK)
+        ifeq ($(platform), ios-arm64)
+           CC = cc -arch arm64 -isysroot $(IOSSDK)
+           CXX = c++ -arch arm64 -isysroot $(IOSSDK)
+        else
+	   CC = cc -arch armv7 -isysroot $(IOSSDK)
+	   CXX = c++ -arch armv7 -isysroot $(IOSSDK)
+	endif
 	COMMONFLAGS += -DIOS
-ifeq ($(platform),ios9)
+ifeq ($(platform),$(filter $(platform),ios9 ios-arm64))
 	CC += -miphoneos-version-min=8.0
 	COMMONFLAGS += -miphoneos-version-min=8.0
 else
 	CC += -miphoneos-version-min=5.0
 	COMMONFLAGS += -miphoneos-version-min=5.0
 endif
+
+else ifeq ($(platform), tvos-arm64)
+	TARGET := $(TARGET_NAME)_libretro_tvos.dylib
+	COMMONFLAGS += -DHAVE_POSIX_MEMALIGN=1 -marm -Wno-error=implicit-function-declaration
+	fpic = -fPIC
+	LDFLAGS += -dynamiclib
+
+	ifeq ($(IOSSDK),)
+		IOSSDK := $(shell xcodebuild -version -sdk appletvos Path)
+	endif
+
 else ifeq ($(platform), theos_ios)
 DEPLOYMENT_IOSVERSION = 5.0
 TARGET = iphone:latest:$(DEPLOYMENT_IOSVERSION)
