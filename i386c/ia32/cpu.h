@@ -34,6 +34,12 @@
 #ifndef IA32_CPU_CPU_H__
 #define IA32_CPU_CPU_H__
 
+#include <setjmp.h>
+#ifdef _3DS
+#define sigjmp_buf jmp_buf
+#define siglongjmp longjmp
+#define sigsetjmp(a,b) setjmp(a)
+#endif
 #include "interface.h"
 
 #ifdef __cplusplus
