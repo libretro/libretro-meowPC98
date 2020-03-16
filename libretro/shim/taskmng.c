@@ -6,7 +6,9 @@
 #include	"menubase.h"
 #include	"sysmenu.h"
 
+#ifndef _3DS
 #include <retro_miscellaneous.h>
+#endif
 
 BOOL	task_avail;
 
@@ -108,7 +110,7 @@ BOOL taskmng_sleep(UINT32 tick) {
    {
       taskmng_rol();
       //SDL_Delay(1);
-#ifndef WIIU
+#if !defined (WIIU) && !defined(_3DS)
       retro_sleep(1);
 #endif
    }
