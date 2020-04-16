@@ -35,7 +35,7 @@
 #define IA32_CPU_CPU_H__
 
 #include <setjmp.h>
-#ifdef _3DS
+#if defined (_3DS) || defined (__PSL1GHT__)
 #define sigjmp_buf jmp_buf
 #define siglongjmp longjmp
 #define sigsetjmp(a,b) setjmp(a)

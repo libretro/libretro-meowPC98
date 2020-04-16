@@ -50,7 +50,7 @@
 #  include <unistd.h>
 #endif
 
-#ifdef __CELLOS_LV2__
+#if defined (__CELLOS_LV2__) && !defined(__PSL1GHT__)
 #include <cell/cell_fs.h>
 #define O_RDONLY CELL_FS_O_RDONLY
 #define O_WRONLY CELL_FS_O_WRONLY
