@@ -59,7 +59,7 @@
 #include <kernel/image.h>
 #endif
 
-#if defined(__CELLOS_LV2__)
+#if defined(__CELLOS_LV2__) && !defined(__PSL1GHT__)
 #include <cell/cell_fs.h>
 #endif
 
@@ -97,7 +97,7 @@ static bool path_stat(const char *path, enum stat_mode mode, int32_t *size)
    }
    free(tmp);
 
-#elif defined(__CELLOS_LV2__)
+#elif defined(__CELLOS_LV2__) && !defined(__PSL1GHT__)
     CellFsStat buf;
     if (cellFsStat(path, &buf) < 0)
        return false;
