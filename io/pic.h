@@ -1,4 +1,6 @@
 
+#undef PIC
+
 typedef struct {
 	UINT8	icw[4];
 
