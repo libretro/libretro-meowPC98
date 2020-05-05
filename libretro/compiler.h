@@ -14,6 +14,7 @@
 #include <setjmp.h>
 #include <stdarg.h>
 #include <string.h>
+#include <retro_endianness.h>
 
 #include "boolean.h"
 #include "features/features_cpu.h"
