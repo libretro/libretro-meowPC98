@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <ctype.h>
 
 #include "libretro.h"
 #include "libretro_params.h"
@@ -35,6 +36,16 @@
 #include "milstr.h"
 #include "strres.h"
 #include "np2.h"
+#include "dosio.h"
+#include "joymng.h"
+#include "scrndraw.h"
+#include "beep.h"
+#include "pcm86.h"
+#include "rhythm.h"
+#include "psggen.h"
+#include "opngen.h"
+#include "oplgen.h"
+#include "adpcm.h"
 
 #define SOUNDRATE 44100.0
 #define SNDSZ 735
@@ -299,8 +310,8 @@ void draw_cross(int x,int y) {
 }
 
 static int lastx=320,lasty=200;
-static menukey=0;
-static menu_active=0;
+static int menukey=0;
+static int menu_active=0;
 
 void updateInput(){
 
@@ -343,7 +354,7 @@ void updateInput(){
 
    if (menuvram == NULL && menu_active==1){
       menubase_close();
-      menu_active==0;
+      menu_active=0;
       mousemng_enable(MOUSEPROC_SYSTEM);
       memset(GuiBuffer,0,LR_SCREENWIDTH*LR_SCREENHEIGHT*2);
       scrndraw_redraw();

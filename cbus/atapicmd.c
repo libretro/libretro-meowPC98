@@ -16,6 +16,7 @@
 #include	"ideio.h"
 #include	"atapicmd.h"
 #include	"fdd/sxsi.h"
+#include        "trace.h"
 
 #define	YUIDEBUG
 

@@ -21,6 +21,9 @@
 #include	"vramhdl.h"
 #include	"menubase.h"
 #include	"sysmenu.h"
+#include        "parts.h"
+#include        "mousemng.h"
+#include <time.h>
 
 NP2OSCFG	np2oscfg = {0, 0, 0, 0, 0};
 

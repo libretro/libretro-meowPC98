@@ -128,6 +128,7 @@ typedef int8_t		CHAR;
 
 //#define	msgbox(title, msg)	toolkit_messagebox(title, msg);
 //#define	msgbox(title, msg)
+int menumbox(const OEMCHAR *string, const OEMCHAR *title, UINT type);
 #define	msgbox(title, msg) menumbox(msg, title, 0x0000 | 0x0040)
 
 #include "common.h"

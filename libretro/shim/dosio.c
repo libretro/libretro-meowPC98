@@ -2,6 +2,7 @@
 
 #include <sys/stat.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "codecnv/codecnv.h"
 #include "dosio.h"
