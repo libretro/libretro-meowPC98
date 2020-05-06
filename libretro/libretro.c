@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <ctype.h>
 
 #include "libretro.h"
 #include "libretro_params.h"
@@ -35,6 +36,16 @@
 #include "milstr.h"
 #include "strres.h"
 #include "np2.h"
+#include "dosio.h"
+#include "joymng.h"
+#include "scrndraw.h"
+#include "beep.h"
+#include "pcm86.h"
+#include "rhythm.h"
+#include "psggen.h"
+#include "opngen.h"
+#include "oplgen.h"
+#include "adpcm.h"
 
 #define SOUNDRATE 44100.0
 #define SNDSZ 735

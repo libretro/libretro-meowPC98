@@ -28,6 +28,8 @@ void soundmng_stop(void);
 
 void soundmng_initialize(void);
 void soundmng_deinitialize(void);
+
+void sound_play_cb(void *userdata, UINT8 *stream, int len);
    
 #ifdef __cplusplus
 }
