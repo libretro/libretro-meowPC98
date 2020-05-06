@@ -354,7 +354,7 @@ void updateInput(){
 
    if (menuvram == NULL && menu_active==1){
       menubase_close();
-      menu_active==0;
+      menu_active=0;
       mousemng_enable(MOUSEPROC_SYSTEM);
       memset(GuiBuffer,0,LR_SCREENWIDTH*LR_SCREENHEIGHT*2);
       scrndraw_redraw();
