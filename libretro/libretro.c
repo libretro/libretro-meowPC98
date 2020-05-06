@@ -310,8 +310,8 @@ void draw_cross(int x,int y) {
 }
 
 static int lastx=320,lasty=200;
-static menukey=0;
-static menu_active=0;
+static int menukey=0;
+static int menu_active=0;
 
 void updateInput(){
 
