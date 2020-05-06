@@ -12,6 +12,19 @@ static OEMCHAR *curfilep = curpath;
 
 #define ISKANJI(c)	((((c) - 0xa1) & 0xff) < 0x5c)
 
+#if defined(VITA)
+#  include <psp2/io/fcntl.h>
+#  include <psp2/io/dirent.h>
+#  include <psp2/io/stat.h>
+#elif defined(PSP)
+#  include <pspiofilemgr.h>
+#endif
+
+
+#if defined(VITA) || defined(PSP)
+#define mkdir sceIoMkdir
+#endif
+
 
 void
 dosio_init(void)
