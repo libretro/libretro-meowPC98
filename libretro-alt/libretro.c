@@ -81,31 +81,14 @@ void retro_set_input_state(retro_input_state_t cb) { input_state_cb = cb; }
 
 long GetTicks(void)
 { // in MSec
-#ifndef _ANDROID_
-
-#ifdef __CELLOS_LV2__
-
-   //#warning "GetTick PS3\n"
-
-   unsigned long	ticks_micro;
-   uint64_t secs;
-   uint64_t nsecs;
-
-   sys_time_get_current_time(&secs, &nsecs);
-   ticks_micro =  secs * 1000000UL + (nsecs / 1000);
-
-   return ticks_micro/1000;
+#ifdef _ANDROID_
+   struct timespec now;
+   clock_gettime(CLOCK_MONOTONIC, &now);
+   return (now.tv_sec*1000000 + now.tv_nsec/1000)/1000;
 #else
    struct timeval tv;
    gettimeofday (&tv, NULL);
    return (tv.tv_sec*1000000 + tv.tv_usec)/1000;
-#endif
-
-#else
-
-   struct timespec now;
-   clock_gettime(CLOCK_MONOTONIC, &now);
-   return (now.tv_sec*1000000 + now.tv_nsec/1000)/1000;
 #endif
 
 } 

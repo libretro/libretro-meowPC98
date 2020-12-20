@@ -50,16 +50,7 @@
 #  include <unistd.h>
 #endif
 
-#if defined (__CELLOS_LV2__) && !defined(__PSL1GHT__)
-#include <cell/cell_fs.h>
-#define O_RDONLY CELL_FS_O_RDONLY
-#define O_WRONLY CELL_FS_O_WRONLY
-#define O_CREAT CELL_FS_O_CREAT
-#define O_TRUNC CELL_FS_O_TRUNC
-#define O_RDWR CELL_FS_O_RDWR
-#else
 #include <fcntl.h>
-#endif
 
 #include <streams/file_stream.h>
 #include <memmap.h>
