@@ -37,10 +37,6 @@ include:
   - project: 'libretro-infrastructure/ci-templates'
     file: '/ctr-static.yml'
 
-  # Nintendo Switch
-  - project: 'libretro-infrastructure/ci-templates'
-    file: '/libnx-static.yml'
-
   # PlayStation Vita
   - project: 'libretro-infrastructure/ci-templates'
     file: '/vita-static.yml'
@@ -99,12 +95,6 @@ android-x86:
 libretro-build-ctr:
   extends:
     - .libretro-ctr-static-retroarch-master
-    - .core-defs
-
-# Nintendo Switch
-libretro-build-libnx-aarch64:
-  extends:
-    - .libretro-libnx-static-retroarch-master
     - .core-defs
 
 # PlayStation Vita
