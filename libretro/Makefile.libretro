@@ -56,6 +56,14 @@ ifndef ($(UNIVERSAL))
 	LDFLAGS += $(ARCHFLAGS)
 endif
 
+   ifeq ($(CROSS_COMPILE),1)
+		TARGET_RULE   = -target $(LIBRETRO_APPLE_PLATFORM) -isysroot $(LIBRETRO_APPLE_ISYSROOT)
+		CFLAGS   += $(TARGET_RULE)
+		CPPFLAGS += $(TARGET_RULE)
+		CXXFLAGS += $(TARGET_RULE)
+		LDFLAGS  += $(TARGET_RULE)
+   endif
+
 # iOS
 else ifneq (,$(findstring ios,$(platform)))
 	TARGET := $(TARGET_NAME)_libretro_ios.dylib
@@ -91,6 +99,8 @@ else ifeq ($(platform), tvos-arm64)
 	ifeq ($(IOSSDK),)
 		IOSSDK := $(shell xcodebuild -version -sdk appletvos Path)
 	endif
+	CC = clang -arch arm64 -isysroot $(IOSSDK)
+	CXX = clang++ -arch arm64 -isysroot $(IOSSDK)
 
 else ifeq ($(platform), theos_ios)
 DEPLOYMENT_IOSVERSION = 5.0
