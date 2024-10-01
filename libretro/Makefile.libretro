@@ -92,7 +92,7 @@ endif
 
 else ifeq ($(platform), tvos-arm64)
 	TARGET := $(TARGET_NAME)_libretro_tvos.dylib
-	COMMONFLAGS += -DHAVE_POSIX_MEMALIGN=1 -marm -Wno-error=implicit-function-declaration
+	COMMONFLAGS += -DHAVE_POSIX_MEMALIGN=1 -Wno-error=implicit-function-declaration
 	fpic = -fPIC
 	LDFLAGS += -dynamiclib
 
