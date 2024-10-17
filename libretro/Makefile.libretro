@@ -84,9 +84,11 @@ else ifneq (,$(findstring ios,$(platform)))
 	COMMONFLAGS += -DIOS
 ifeq ($(platform),$(filter $(platform),ios9 ios-arm64))
 	CC += -miphoneos-version-min=8.0
+	CXX += -miphoneos-version-min=8.0
 	COMMONFLAGS += -miphoneos-version-min=8.0
 else
 	CC += -miphoneos-version-min=5.0
+	CXX += -miphoneos-version-min=5.0
 	COMMONFLAGS += -miphoneos-version-min=5.0
 endif
 
@@ -101,6 +103,9 @@ else ifeq ($(platform), tvos-arm64)
 	endif
 	CC = clang -arch arm64 -isysroot $(IOSSDK)
 	CXX = clang++ -arch arm64 -isysroot $(IOSSDK)
+	CC += -mappletvos-version-min=11.0
+	CXX += -mappletvos-version-min=11.0
+	COMMONFLAGS += -mappletvos-version-min=11.0
 
 else ifeq ($(platform), theos_ios)
 DEPLOYMENT_IOSVERSION = 5.0
